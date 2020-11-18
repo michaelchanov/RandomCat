@@ -1,5 +1,4 @@
 package com.example.randomcat.ui
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +13,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-
 class FirstFragment : Fragment(), CoroutineScope {
 
     override val coroutineContext = Dispatchers.Main
@@ -27,15 +25,16 @@ class FirstFragment : Fragment(), CoroutineScope {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val repository = CatRepository()
+        image.visibility = View.GONE
         button.setOnClickListener {
-        launch {
-            val cats = repository.getData().await()
-            loader.visibility = View.GONE
+            image.visibility = View.VISIBLE
+            launch {
+                val cats = repository.getData().await()
+                loader.visibility = View.GONE
 
-            Glide.with(requireContext()).load(cats?.url).centerCrop().into(image)
+                Glide.with(requireContext()).load(cats?.get(0)?.url).centerCrop().into(image)
 
-
+            }
         }
-    }
     }
 }

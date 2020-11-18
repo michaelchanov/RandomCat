@@ -1,5 +1,4 @@
 package com.example.randomcat.data
-
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -13,7 +12,6 @@ class CatRepository: CoroutineScope {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
         .create(CatApi::class.java)
-
 
     fun getData() = async {
         catApi.getData()
